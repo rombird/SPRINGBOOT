@@ -14,5 +14,6 @@ public class HomeController {
         log.info("GET / ...");
         return "index";
     }
-    // WEB-INF/views/index.jsp가 들어오게됨
+    // localhost:8090/
+    // WEB-INF/views/index.jsp가 들어오게됨 - 페이지 위치를 찾아줌
 }
