@@ -19,11 +19,19 @@ import java.time.format.DateTimeFormatter;
 @Slf4j
 @RequestMapping("/memo")
 public class MemoController {
-    
+
+    // MemoController에서 발생하는 모든 exception 여기서 받겠다
+//    @ExceptionHandler(Exception.class)
+//    public String exception_handler(Exception e){
+//        log.error("MemoController's Excetpion ...");
+//        return "memo/error";
+//    }
+
+
     // 임의로 데이트타입 형변환하는 작업
     // 바인드 처리를 직접 하기위한 작업(data_test 직접 문자열로 받기위한 작업) - 먼저 동작
     @InitBinder
-    public void dataBinder(WebDataBinder webDataBinder){
+    public void dataBinder(WebDataBinder webDataBinder) {
         log.info("MemoController's dataBinder ..." + webDataBinder);
         // (localdate.class(replection), 내가 관여할 필드, 어떻게 관여할 건지 지정)
         webDataBinder.registerCustomEditor(LocalDate.class, "data_test", new DataTestEditor());
@@ -49,12 +57,12 @@ public class MemoController {
     }
 
     @GetMapping("/add")
-    public void add_memo_get(){
+    public void add_memo_get() throws Exception {
         log.info("GET /memo/add...");
     }
 
     @PostMapping("/add")
-    public void add_memo_post(@Valid @ModelAttribute MemoDto dto, BindingResult bindingResult, Model model){
+    public void add_memo_post(@Valid @ModelAttribute MemoDto dto, BindingResult bindingResult, Model model) throws Exception  {
         log.info("POST /memo/add..." + dto);
         // 파라미터
         // 입력값 검증
@@ -64,7 +72,10 @@ public class MemoController {
                 log.info("Error Field" + error.getField() + "Error Message : "+error.getDefaultMessage());
                 model.addAttribute(error.getField(), error.getDefaultMessage());
             }
+            // throw new NullPointerException("예외발생!");
+            throw new Exception("유효성 검증 오류");
         }
+
         // 결측치 확인, null인지 아닌지 확인
         // id 양수값, 1000번까지만 받을 수 있도록
         // 서비스 요청 -> Domain, Common, Service(역할별로 domain 나눔)
