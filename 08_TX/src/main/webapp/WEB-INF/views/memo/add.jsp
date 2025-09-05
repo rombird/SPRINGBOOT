@@ -6,20 +6,22 @@
 </head>
 <body>
     <h1>/memo/add PAGE</h1>
+
     <form action="/memo/add" method="post">
 
-        <div>
-            <label>TEXT : </label> <span> ${text} </span><br/>
-            <textarea name="text"></textarea>
-        </div>
-        <div>
-            <label>WRITER : </label> <span> ${writer} </span><br/>
+      <div>
+            <label>TEXT :</label> <span> ${text} </span> <br/>
+            <textarea name="text"> </textarea>
+      </div>
+      <div>
+            <label>WRITER :</label> <span> ${writer} </span> <br/>
             <input name="writer" />
-        </div>
+      </div>
 
-        <div>
+      <div>
             <button>메모추가</button>
-        </div>
+      </div>
     </form>
+
 </body>
 </html>

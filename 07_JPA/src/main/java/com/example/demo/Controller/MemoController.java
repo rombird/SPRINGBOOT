@@ -9,13 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.beans.PropertyEditorSupport;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 @Controller
 @Slf4j
@@ -32,34 +30,6 @@ public class MemoController {
 //        log.error("MemoController's Excetpion ...");
 //        return "memo/error";
 //    }
-
-    // 임의로 데이트타입 형변환하는 작업
-    // 바인드 처리를 직접 하기위한 작업(data_test 직접 문자열로 받기위한 작업) - 먼저 동작
-    @InitBinder
-    public void dataBinder(WebDataBinder webDataBinder) {
-        log.info("MemoController's dataBinder ..." + webDataBinder);
-        // (localdate.class(replection), 내가 관여할 필드, 어떻게 관여할 건지 지정)
-        webDataBinder.registerCustomEditor(LocalDate.class, "data_test", new DataTestEditor());
-    }
-
-    private static class DataTestEditor extends PropertyEditorSupport {
-        // data binding을 해주는 과정에서 얘네가 작업을 해주겠다는 의미
-        // 생성 -> 메소드 재정의 -> setAsText 선택
-        @Override
-        public void setAsText(String text) throws IllegalArgumentException {
-            log.info("DataTestEditor's setAsText text : " + text); // data_test에 입력한 값이 들어오는 걸 확인
-            LocalDate date = null;
-            if(text.isEmpty()){
-                // 아무것도 입력하지않으면 현재 날짜로
-                date = LocalDate.now();
-            }else{
-                // 입력했다면 format 확인(yyyy#MM#dd)
-                text = text.replaceAll("#", "-"); 
-                date = LocalDate.parse(text, DateTimeFormatter.ofPattern("yyyy-MM-dd")); // parsing을 이렇게 진행하겠다
-            }
-            setValue(date); // 변환한 데이터 담아주기
-        }
-    }
 
     @GetMapping("/add")
     public void add_memo_get() throws Exception {
@@ -85,15 +55,22 @@ public class MemoController {
         // 결측치 확인, null인지 아닌지 확인
         // id 양수값, 1000번까지만 받을 수 있도록
         // 서비스 요청 -> Domain, Common, Service(역할별로 domain 나눔)
-        boolean isAdded = memoService.memoRegistration(dto); // 검증이 끝난 dto로 전달-> true, false 로 반환
         // RedirectAttributes redirectAttributes 연결하고
-        if(isAdded) // isAdded가 true 면 메시지 하나 주기
-            redirectAttributes.addFlashAttribute("message","메모 등록 완료");
-            // 메시지를 속성에 등록하면 message라는 속성명을 가지게 되는데 index.jsp 파일에서 작업 ->  ${message}
+//        boolean isAdded = memoService.memoRegistration(dto); // 검증이 끝난 dto로 전달-> true, false 로 반환
+//        if(isAdded) // isAdded가 true 면 메시지 하나 주기
+//            redirectAttributes.addFlashAttribute("message","메모 등록 완료");
+        // 메시지를 속성에 등록하면 message라는 속성명을 가지게 되는데 index.jsp 파일에서 작업 ->  ${message}
         // 뷰로 이동
         // memo추가를 했으면 페이지 이동을 해야함 -> void -> String
-        return (isAdded)?"redirect:/":"memo/add"; // isAdded가 true면 redirect로 이동하고 아니면 계속 memo/add에 머무르도록
-        
+//        return (isAdded)?"redirect:/":"memo/add"; // isAdded가 true면 redirect로 이동하고 아니면 계속 memo/add에 머무르도록
+
+
+        Long insertedId = memoService.memoRegistration2(dto);
+        if(insertedId!=null)
+            redirectAttributes.addFlashAttribute("message", " 메모등록완료! : " + insertedId);
+        // 뷰로 이동
+        return insertedId!=null?"redirect:/":"memo/add";
+
     }
 
 }
