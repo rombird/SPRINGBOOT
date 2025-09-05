@@ -5,9 +5,7 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>INDEX PAGE</h1>
-<div>
-    ${message}
-</div>
+<h1>PAGE : /param/forward/init </h1>
+
 </body>
 </html>

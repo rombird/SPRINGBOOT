@@ -5,9 +5,12 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>INDEX PAGE</h1>
-<div>
-    ${message}
-</div>
+<h1>/param/page2</h1>
+
+DTO : ${dto}<br/>
+NAME : ${dto.name}<br/>
+AGE : ${dto.age}<br/>
+ADDR : ${dto.addr}<br/>
+
 </body>
 </html>
