@@ -6,7 +6,9 @@ import com.example.demo.Domain.Common.Entity.Memo;
 import com.example.demo.Domain.Common.Repository.MemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -24,6 +26,8 @@ public class MemoService {
         return result>0;
     }
 
+    // 트랜잭션 사용
+    @Transactional(rollbackFor = SQLException.class, transactionManager ="jpaTransactionManager")
     public Long memoRegistration2(MemoDto dto) throws Exception {
         //dto -> entity
         Memo memo = Memo.builder()
