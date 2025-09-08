@@ -16,21 +16,21 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class DataSourceTests {
 
     // 01 방법
-//    @Autowired
-//    private DataSource dataSource;
-//
-//    @Test
-//    public void t1() throws SQLException {
-//        assertNotNull(dataSource);
-//        System.out.println(dataSource); // HikariDataSource (null) : 일반적으로 많이 쓰는 커넥션풀
-//        Connection conn = dataSource.getConnection(); // 예외던져주기 - 데이터소스 연결
-//        PreparedStatement pstmt = conn.prepareStatement("insert into tbl_memo values(?, ?, ?, ?)"); // 던질 준비
-//        pstmt.setLong(1, 1L);
-//        pstmt.setString(2, "내용내용");
-//        pstmt.setString(3, "test@naver.com");
-//        pstmt.setString(4, LocalDateTime.now().toString());
-//        int result = pstmt.executeUpdate();
-//    }
+    @Autowired
+    private DataSource dataSource;
+
+    @Test
+    public void t1() throws SQLException {
+        assertNotNull(dataSource);
+        System.out.println(dataSource); // HikariDataSource (null) : 일반적으로 많이 쓰는 커넥션풀
+        Connection conn = dataSource.getConnection(); // 예외던져주기 - 데이터소스 연결
+        PreparedStatement pstmt = conn.prepareStatement("insert into tbl_memo values(?, ?, ?, ?)"); // 던질 준비
+        pstmt.setLong(1, 1L);
+        pstmt.setString(2, "내용내용");
+        pstmt.setString(3, "test@naver.com");
+        pstmt.setString(4, LocalDateTime.now().toString());
+        int result = pstmt.executeUpdate();
+    }
 
     // 02 연결방법 - DataSourceConfig에서 만든 dataSource2와 연결
     @Autowired

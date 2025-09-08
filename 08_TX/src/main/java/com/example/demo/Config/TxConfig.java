@@ -20,7 +20,7 @@ public class TxConfig {
 
 
     // JPA Tx
-    @Bean(name="jpaTransactionManager")
+    @Bean(name="jpaTransactionManager") // 이름 일치 트랙잭션을위한 빈의 이름
     public JpaTransactionManager jpaTransactionManager(EntityManagerFactory entityManagerFactory) { // entitymanagerfactory가 알아서 만들어지게되는데
         JpaTransactionManager transactionManager = new JpaTransactionManager();                     //JpaConfig에서 설정해줬음 <- 의존주의를 받는다고 보면 된다. 이렇게 만들어진 것에 JpaTranscationManager 생성
         transactionManager.setEntityManagerFactory(entityManagerFactory);

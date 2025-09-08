@@ -25,3 +25,4 @@ public class Memo {
     private String writer;
     private LocalDateTime createAt;
 }
+// Entity 테이블 이라고 생각하고

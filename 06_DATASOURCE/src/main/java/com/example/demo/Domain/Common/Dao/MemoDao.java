@@ -32,7 +32,4 @@ public class MemoDao { // MemoDao에 커서 갖다대고 -> ctrl + shift + T -> 
         return result; // 추가한 행의 개수를 return
     }
 
-
-
-
 }

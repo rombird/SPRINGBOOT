@@ -1,44 +1,18 @@
 package com.example.demo.Domain.Common.Service;
 
-import com.example.demo.Domain.Common.Dao.MemoDao;
 import com.example.demo.Domain.Common.Dto.MemoDto;
-import com.example.demo.Domain.Common.Entity.Memo;
-import com.example.demo.Domain.Common.Repository.MemoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
-@Service
-public class MemoService {
-    @Autowired
-    private MemoDao memoDao;
-
-    @Autowired
-    private MemoRepository memoRepository;
-
-
-    public boolean memoRegistration(MemoDto dto) throws Exception {
-        int result = memoDao.insert(dto);
-        return result>0;
-    }
+public interface MemoService {
+    boolean memoRegistration(MemoDto dto) throws Exception;
 
     // 트랜잭션 사용
-    @Transactional(rollbackFor = SQLException.class, transactionManager ="jpaTransactionManager")
-    public Long memoRegistration2(MemoDto dto) throws Exception {
-        //dto -> entity
-        Memo memo = Memo.builder()
-                    .id(null)
-                    .text(dto.getText())
-                    .writer(dto.getWriter())
-                    .createAt(LocalDateTime.now())
-                    .build();
-        memoRepository.save(memo);
-        return memo.getId();
-    }
-
-
+    @Transactional(rollbackFor = SQLException.class, transactionManager = "jpaTransactionManager")
+    Long memoRegistration2(MemoDto dto) throws Exception;
 }
+
+// MemoService의 이름을 MemoServiceImpl 로 바꿔준 다음 작업
+// 리펙터링 -> 인터페이스 추출 -> 결합도 낮추는 방법(Controller -> Service연결시 결합도 낮추는 방법)
+// Imple와 repositoy를 연결해서 중간에 공정을 하나 추가하는 작업이라고 생각

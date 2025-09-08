@@ -24,7 +24,7 @@ import java.util.Properties;
 @EntityScan(basePackages = {"com.example.demo.Domain.Common.Entity"})
 @EnableJpaRepositories(
         basePackages = {"com.example.demo.Domain.Common.Repository"},
-        transactionManagerRef = "jpaTransactionManager" // 트랜잭션 참조
+        transactionManagerRef = "jpaTransactionManager" // 트랜잭션 참조, 트랜잭션 처리를 위한 빈의 이름
 )
     
 public class JpaConfig {
