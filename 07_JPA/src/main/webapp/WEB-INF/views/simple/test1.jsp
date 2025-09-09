@@ -5,9 +5,7 @@
 	<title>Home</title>
 </head>
 <body>
-<h1>
-	test1 page
-</h1>
+<h1>test1 page</h1>
 
 <P>  The time on the server is 하이 </P>
 </body>

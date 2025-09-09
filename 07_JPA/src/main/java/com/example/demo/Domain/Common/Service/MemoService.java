@@ -7,13 +7,10 @@ import com.example.demo.Domain.Common.Repository.MemoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-// memo service에서는 알아보기 쉽게 함수명 설정
-
-
-// MemoService를 -> MemoDao와 연결
-@Service // 빈으로 들어가게됨
+@Service
 public class MemoService {
     @Autowired
     private MemoDao memoDao;
@@ -21,25 +18,23 @@ public class MemoService {
     @Autowired
     private MemoRepository memoRepository;
 
-    // controller와 persistancelayer 에서는 할 것이 정해져있지만 service 영역은 할게 많음(service를 얼마나 잘 만드느냐에 따라 프로젝트의 질이 달라짐)***
-    // 등록되었는지 아닌지 보기 위한 함수이므로 boolean 형으로 지정
-//    public boolean memoRegistration(MemoDto dto) throws Exception{
-//        int result = memoDao.insert(dto); //지금은 당장 할게 없기 때문에
-//        return result>0;
-//    }
 
-    public Long memoRegistration2(MemoDto dto) throws Exception{
-        // dto -> entity
+    public boolean memoRegistration(MemoDto dto) throws Exception {
+        int result = memoDao.insert(dto);
+        return result>0;
+    }
+
+    public Long memoRegistration2(MemoDto dto) throws Exception {
+        //dto -> entity
         Memo memo = Memo.builder()
                     .id(null)
                     .text(dto.getText())
                     .writer(dto.getWriter())
                     .createAt(LocalDateTime.now())
                     .build();
-
         memoRepository.save(memo);
         return memo.getId();
-
     }
+
 
 }

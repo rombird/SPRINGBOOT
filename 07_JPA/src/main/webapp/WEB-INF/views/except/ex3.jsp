@@ -5,7 +5,7 @@
 	<title>Home</title>
 </head>
 <body>
-<h1> /except/ex3 PAGE </h1>
+<h1>/except/ex3 PAGE</h1>
 
 
 </body>

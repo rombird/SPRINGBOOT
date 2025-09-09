@@ -12,5 +12,6 @@ NAME : ${dto.name}<br/>
 AGE : ${dto.age}<br/>
 ADDR : ${dto.addr}<br/>
 
+
 </body>
 </html>
