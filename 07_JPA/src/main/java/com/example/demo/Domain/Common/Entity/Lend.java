@@ -23,7 +23,7 @@ public class Lend {
 
     // -동일한 책이 여러권 있다고 가정하고 다대 일 관계로 작업해보기
     // lend와 user 연결작업
-    @ManyToOne // 관계 매핑 -> 다 대 일 lend가 다(M)
+    @ManyToOne(fetch = FetchType.EAGER) // 관계 매핑 -> 다 대 일 lend가 다(M), (fetch = FetchType.EAGER) - FETCH 전략 사용
     @JoinColumn(
             name = "username",
             foreignKey = @ForeignKey(
@@ -35,7 +35,7 @@ public class Lend {
     private User user; // lend table은 user의 기본 컬럼과 연결해서 사용
 
     // lend와 book 연결작업
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(
             name = "bookCode",
             foreignKey = @ForeignKey(
